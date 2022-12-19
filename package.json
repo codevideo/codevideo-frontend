@@ -1,0 +1,37 @@
+{
+  "name": "@fullstackcraftllc/codevideo-frontend",
+  "version": "1.0.0",
+  "description": "The frontend engine to create videos on codevideo.io",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codevideo/codevideo-frontend.git"
+  },
+  "keywords": [
+    "typescript",
+    "canvas"
+  ],
+  "author": "Chris Frewin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codevideo/codevideo-frontend/issues"
+  },
+  "homepage": "https://github.com/codevideo/codevideo-frontend#readme",
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "rollup": "^3.7.5",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.11.6",
+    "monaco-editor-core": "^0.34.1",
+    "monaco-themes": "^0.4.3"
+  }
+}

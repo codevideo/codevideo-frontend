@@ -7,8 +7,10 @@
   "scripts": {
     "prestart": "cp -Rf src example/src && cd example && npm run build",
     "start": "cp serve.json example/build/serve.json && serve example/build -p 3000",
+    "start-ci": "serve example/build -p 3000",
     "cy:run": "cypress run",
     "test": "start-server-and-test start http://localhost:3000 cy:run",
+    "test-ci": "start-server-and-test start-ci http://localhost:3000 cy:run",
     "build": "rollup -c ./rollup.config.js",
     "type-check": "tsc --noEmit"
   },

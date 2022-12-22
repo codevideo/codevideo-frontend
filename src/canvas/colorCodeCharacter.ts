@@ -31,7 +31,7 @@ export const colorCodeCharacter = (
   const lineTokens = tokens[lineIndex];
   
   // then get the token from the line - we know where it is based on the offset of the character
-  const token = lineTokens.find((token) => token.offset == characterIndex);
+  const token = lineTokens.find((token) => token.offset === characterIndex);
 
   // this occurs when the token is empty (and also actually undefined), but really its for the case when it is empty :)
   if (token === undefined) {

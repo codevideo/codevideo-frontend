@@ -1,0 +1,58 @@
+version: 2.1
+
+workflows:
+  test:
+    jobs:
+      - test:
+          context:
+            - CodeVideo
+          filters:
+            branches:
+              only:
+                - develop
+  test_and_release:
+    jobs:
+      - test:
+          context:
+            - CodeVideo
+          filters:
+            branches:
+              only:
+                - main
+      - release:
+          context:
+            - CodeVideo
+          requires:
+            - test
+
+jobs:
+  test:
+    docker:
+      - image: cypress/base:10
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies (root)
+          command: npm install
+      - run:
+          name: Install dependencies (example app)
+          command: cd example && npm install
+      - run:
+          name: Run Tests
+          command: npm run test
+  release:
+    docker:
+      - image: node:latest
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: npm version patch
+      - run: |
+          git config --global user.email $GIT_USER_EMAIL
+          git config --global user.name $GIT_USER_NAME
+          git checkout -b release
+          git add -A
+          git commit -m "Built and committed by CircleCI"
+          git push origin release
+      - run: npm publish

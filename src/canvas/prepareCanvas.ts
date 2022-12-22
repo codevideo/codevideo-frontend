@@ -1,17 +1,17 @@
 import { ArrayOfTwoOrMore } from "../types/ArrayOfTwoOrMore";
-import { drawCircle } from "./drawCircle";
+import { drawCircle } from "./utils/drawCircle";
 
 export const prepareCanvas = async (
     canvas: HTMLCanvasElement,
-    height: number,
     width: number,
+    height: number,
     gradientColors: ArrayOfTwoOrMore<string>
 ) => {
     const ctx = canvas.getContext("2d");
     if (ctx) {
         // set canvas dimensions
-        canvas.height = height;
         canvas.width = width;
+        canvas.height = height;
 
         // before doing anything, ensure the canvas is completely clear
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -22,8 +22,6 @@ export const prepareCanvas = async (
         gradientColors.forEach((color, index) => {
             gradient.addColorStop(index, color);
         });
-        gradient.addColorStop(0, "#91ffd9");
-        gradient.addColorStop(1, "#f5ff97");
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 

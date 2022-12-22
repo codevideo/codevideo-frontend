@@ -1,62 +1,11 @@
 import Monokai from "monaco-themes/themes/Monokai.json";
 import * as monaco from "monaco-editor-core";
 import { colorCodeCharacter } from "./colorCodeCharacter";
-import { sleep } from "./sleep";
 import { MimicTypos } from "../enums/MimicTypos";
+import { runTypoLogic } from "../canvas/runTypoLogic";
+import { sleep } from "../utils/sleep";
 
-const getRandomInt = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-const runTypoLogic = async (
-  mimicTypos: MimicTypos,
-  ctx: CanvasRenderingContext2D,
-  lastX: number,
-  lastY: number,
-  xOffset: number
-): Promise<void> => {
-  if (mimicTypos === MimicTypos.NEVER) {
-    return;
-  }
-  let typoProbability = 0;
-  if (mimicTypos === MimicTypos.SOMETIMES) {
-    typoProbability = 0.025;
-  }
-  if (mimicTypos === MimicTypos.OFTEN) {
-    typoProbability = 0.1;
-  }
-
-  // now the actual logic
-  if (Math.random() > typoProbability) {
-    return;
-  }
-
-  // begin typo logic:
-
-  // first save the current color
-  const currentColor = ctx.fillStyle;
-
-  // also generate a random for a length of typo to make - from 1 to 3 characters
-  const typoLength = Math.floor(Math.random() * 3) + 1;
-  // now type horizontally across the screen with a random character following the position
-  for (let i = 1; i < typoLength + 1; i++) {
-    const randomCharacter = chars[getRandomInt(0, 35)];
-    ctx.fillText(randomCharacter, lastX + xOffset * i, lastY);
-    await sleep(200);
-  }
-  // now do various fill rects with black to simulate "fixing" the typo
-  for (let i = typoLength + 1; i > 0; i--) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(lastX + xOffset * i, lastY - 20, xOffset, 30);
-    await sleep(200);
-  }
-
-  // typo done, restore fill color
-  ctx.fillStyle = currentColor;
-};
-
-export const animateText = async (
+export const animateCanvas = async (
   canvas: HTMLCanvasElement | null,
   code: string,
   language: string,
@@ -86,7 +35,7 @@ export const animateText = async (
 
   const initializeMonaco = new Promise((res) =>
     setTimeout(() => {
-      (window as any).monaco.editor.tokenize(
+      monaco.editor.tokenize(
         `export const dummy = () => {
     console.log('hello world')
   }`,
@@ -97,7 +46,7 @@ export const animateText = async (
   );
   await initializeMonaco;
 
-  const tokens = (window as any).monaco.editor.tokenize(code, language);
+  const tokens = monaco.editor.tokenize(code, language);
 
   // add a sleep for a smooth start
   await sleep(500);

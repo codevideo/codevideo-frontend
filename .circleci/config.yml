@@ -38,8 +38,17 @@ jobs:
           name: Install dependencies (example app)
           command: cd example && npm install
       - run:
-          name: Run Tests
-          command: npm run test
+          name: Copy src to example app
+          command: cp -Rf src example/src
+      - run:
+          name: Build example app
+          command: cd example && npm run build
+      - run:
+          name: Copy serve config to build
+          command: cp serve.json example/build/serve.json
+      - run:
+          name: Run Tests (CI Mode)
+          command: npm run test-ci
   release:
     docker:
       - image: node:latest

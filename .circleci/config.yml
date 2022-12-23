@@ -10,20 +10,20 @@ workflows:
             branches:
               only:
                 - develop
-  test_and_release:
+      - merge_to_main:
+          context:
+            - codevideo
+          requires:
+            - test
+  release:
     jobs:
-      - test:
+      - release:
           context:
             - codevideo
           filters:
             branches:
               only:
                 - main
-      - release:
-          context:
-            - codevideo
-          requires:
-            - test
   publish:
     jobs:
       - publish:
@@ -61,6 +61,10 @@ jobs:
       - run:
           name: Run Tests (CI Mode)
           command: npm run test-ci
+  merge_to_main:
+    docker:
+      - image: node:latest
+    steps:
       - run:
           name: Merge to main
           command: |

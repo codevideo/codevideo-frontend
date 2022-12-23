@@ -96,6 +96,9 @@ jobs:
       - image: node:latest
     steps:
       - checkout
-      - run: 
+      - run:
+          name: Add npm registry credentials
+          command: npm adduser --registry=https://registry.npmjs.org/ --always-auth=true
+      - run:
           name: Publish with npm
           command: npm publish

@@ -5,7 +5,7 @@ workflows:
     jobs:
       - test:
           context:
-            - CodeVideo
+            - codevideo
           filters:
             branches:
               only:
@@ -14,26 +14,25 @@ workflows:
     jobs:
       - test:
           context:
-            - CodeVideo
+            - codevideo
           filters:
             branches:
               only:
                 - main
       - release:
           context:
-            - CodeVideo
+            - codevideo
           requires:
             - test
   publish:
     jobs:
       - publish:
           context:
-            - CodeVideo
+            - codevideo
           filters:
             branches:
               only:
-                - main
-
+                - release
 
 jobs:
   test:
@@ -41,6 +40,9 @@ jobs:
       - image: cypress/browsers:node18.12.0-chrome107
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "0e:de:f3:e5:2d:85:e2:7d:3b:d3:70:af:e9:db:e6:3a"
       - run:
           name: Install dependencies (root)
           command: npm install
@@ -59,18 +61,37 @@ jobs:
       - run:
           name: Run Tests (CI Mode)
           command: npm run test-ci
+      - run:
+          name: Merge to main
+          command: |
+            git config --global user.email $GIT_USER_EMAIL
+            git config --global user.name $GIT_USER_NAME
+            git checkout main
+            git add -A
+            git commit -m "Auto merge to main by Circle CI"
+            git push origin main
   release:
     docker:
       - image: node:latest
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "0e:de:f3:e5:2d:85:e2:7d:3b:d3:70:af:e9:db:e6:3a"
       - run: npm install
       - run: npm run build
       - run: |
           version_string=$(grep '"version":' package.json)
           version=$(echo "$version_string" | sed -E 's/.*"([^"]+)".*/\1/')
-          git checkout -b release
+          git config --global user.email $GIT_USER_EMAIL
+          git config --global user.name $GIT_USER_NAME
+          git checkout release
           git add -A
           git tag -a $version commit -m "Release $new_version - built by Circle CI"
           git push origin release
+  publish:
+    docker:
+      - image: node:latest
+    steps:
+      - checkout
       - run: npm publish

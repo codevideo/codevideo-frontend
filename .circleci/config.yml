@@ -58,6 +58,13 @@ jobs:
       - run:
           name: Run Tests (CI Mode)
           command: npm run test-ci
+      - run:
+          name: Merge to main
+          command: |
+            git checkout -b main
+            git add -A
+            git commit -m "Auto merge to main by Circle CI"
+            git push origin main
   release:
     docker:
       - image: node:latest

@@ -62,8 +62,7 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             git checkout main
-            git merge develop
-            git commit -m "Auto merge from develop to main by Circle CI"
+            GIT_MERGE_AUTOEDIT=no git merge develop
             git push origin main
   release:
     docker:
@@ -74,10 +73,10 @@ jobs:
           fingerprints:
             - "0e:de:f3:e5:2d:85:e2:7d:3b:d3:70:af:e9:db:e6:3a"
       - run: 
-          name: Install dependencies
+          name: Install dependencies (npm install)
           command: npm install
       - run: 
-          name: Build distribution version
+          name: Build distribution version (npm run build)
           command: npm run build
       - run: 
           name: Merge to release branch with new version as git tag
@@ -87,9 +86,8 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             git checkout release
-            git merge main
-            git tag -a $version 
-            git commit -m "Release $new_version: Auto merge from main to release by Circle CI"
+            GIT_MERGE_AUTOEDIT=no git merge main
+            git tag -a $version -m $version
             git push origin release
   publish:
     docker:
@@ -100,5 +98,5 @@ jobs:
           name: Add npm registry credentials (uses NPM_USERNAME, NPM_PASSWORD, and NPM_EMAIL from context)
           command: npm adduser --registry=https://registry.npmjs.org/ --always-auth=true
       - run:
-          name: Publish with npm
-          command: npm publish
+          name: Publish with npm (npm publish --access public)
+          command: npm publish --access public

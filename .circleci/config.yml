@@ -87,7 +87,8 @@ jobs:
           git config --global user.name $GIT_USER_NAME
           git checkout release
           git add -A
-          git tag -a $version commit -m "Release $new_version - built by Circle CI"
+          git tag -a $version 
+          git commit -m "Release $new_version - built by Circle CI"
           git push origin release
   publish:
     docker:

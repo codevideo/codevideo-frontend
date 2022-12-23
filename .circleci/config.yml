@@ -40,6 +40,9 @@ jobs:
       - image: cypress/browsers:node18.12.0-chrome107
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "3b:48:63:e6:ea:57:a5:a1:06:f8:74:87:31:b4:67:86"
       - run:
           name: Install dependencies (root)
           command: npm install
@@ -70,6 +73,9 @@ jobs:
       - image: node:latest
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "3b:48:63:e6:ea:57:a5:a1:06:f8:74:87:31:b4:67:86"
       - run: npm install
       - run: npm run build
       - run: |

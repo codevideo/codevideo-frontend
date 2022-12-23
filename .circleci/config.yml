@@ -63,7 +63,6 @@ jobs:
             git config --global user.name $GIT_USER_NAME
             git checkout main
             GIT_MERGE_AUTOEDIT=no git merge develop
-            git commit -m "Auto merge from develop to main by Circle CI"
             git push origin main
   release:
     docker:
@@ -89,7 +88,6 @@ jobs:
             git checkout release
             GIT_MERGE_AUTOEDIT=no git merge main
             git tag -a $version 
-            git commit -m "Release $new_version: Auto merge from main to release by Circle CI"
             git push origin release
   publish:
     docker:

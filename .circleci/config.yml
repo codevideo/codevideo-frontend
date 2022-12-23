@@ -62,8 +62,8 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             git checkout main
-            git add -A
-            git commit -m "Auto merge to main by Circle CI"
+            git merge develop
+            git commit -m "Auto merge from develop to main by Circle CI"
             git push origin main
   release:
     docker:
@@ -87,9 +87,9 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             git checkout release
-            git add -A
+            git merge main
             git tag -a $version 
-            git commit -m "Release $new_version - built by Circle CI"
+            git commit -m "Release $new_version: Auto merge from main to release by Circle CI"
             git push origin release
   publish:
     docker:

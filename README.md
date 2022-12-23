@@ -1,5 +1,7 @@
 # codevideo-frontend
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/codevideo/codevideo-frontend/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/codevideo/codevideo-frontend/tree/main)
+
 <img src="https://img.shields.io/npm/v/@fullstackcraftllc/codevideo-frontend"/>
 
 The frontend engine to create videos on codevideo.io

@@ -55,13 +55,14 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run build
-      - run: npm version patch
       - run: |
-          git config --global user.email $GIT_USER_EMAIL
-          git config --global user.name $GIT_USER_NAME
+          current_version=$(jq -r '.version' package.json)
+          new_version=$(semver -i patch $current_version)
+          jq ".version = \"$new_version\"" package.json > package.json.tmp && mv package.json.tmp package.json
+      - run: npm run build
+      - run: |
           git checkout -b release
           git add -A
-          git commit -m "Built and committed by CircleCI"
+          git commit -m "Built code for release $new_version"
           git push origin release
       - run: npm publish

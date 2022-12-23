@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Merge to main
           command: |
-            git checkout -b main
+            git checkout main
             git add -A
             git commit -m "Auto merge to main by Circle CI"
             git push origin main
@@ -75,7 +75,7 @@ jobs:
       - run: |
           version_string=$(grep '"version":' package.json)
           version=$(echo "$version_string" | sed -E 's/.*"([^"]+)".*/\1/')
-          git checkout -b release
+          git checkout release
           git add -A
           git tag -a $version commit -m "Release $new_version - built by Circle CI"
           git push origin release

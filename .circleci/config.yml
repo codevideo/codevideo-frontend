@@ -55,14 +55,12 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: |
-          current_version=$(jq -r '.version' package.json)
-          new_version=$(semver -i patch $current_version)
-          jq ".version = \"$new_version\"" package.json > package.json.tmp && mv package.json.tmp package.json
       - run: npm run build
       - run: |
+          version_string=$(grep '"version":' package.json)
+          version=$(echo "$version_string" | sed -E 's/.*"([^"]+)".*/\1/')
           git checkout -b release
           git add -A
-          git commit -m "Built code for release $new_version"
+          git tag -a $version commit -m "Release $new_version - built by Circle CI"
           git push origin release
       - run: npm publish

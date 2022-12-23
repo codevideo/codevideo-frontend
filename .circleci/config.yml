@@ -74,10 +74,10 @@ jobs:
           fingerprints:
             - "0e:de:f3:e5:2d:85:e2:7d:3b:d3:70:af:e9:db:e6:3a"
       - run: 
-          name: Install dependencies
+          name: Install dependencies (npm install)
           command: npm install
       - run: 
-          name: Build distribution version
+          name: Build distribution version (npm run build)
           command: npm run build
       - run: 
           name: Merge to release branch with new version as git tag
@@ -100,5 +100,5 @@ jobs:
           name: Add npm registry credentials (uses NPM_USERNAME, NPM_PASSWORD, and NPM_EMAIL from context)
           command: npm adduser --registry=https://registry.npmjs.org/ --always-auth=true
       - run:
-          name: Publish with npm
-          command: npm publish
+          name: Publish with npm (npm publish --access public)
+          command: npm publish --access public

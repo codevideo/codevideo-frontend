@@ -51,7 +51,7 @@ jobs:
           command: npm run test-ci
   release:
     docker:
-      - image: node:latest
+      - image: node:18-alpine
     steps:
       - checkout
       - run: npm install

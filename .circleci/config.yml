@@ -80,7 +80,7 @@ jobs:
           name: Build distribution version
           command: npm run build
       - run: 
-          name: Merge to release branch with version as git tag
+          name: Merge to release branch with new version as git tag
           command: |
             version_string=$(grep '"version":' package.json)
             version=$(echo "$version_string" | sed -E 's/.*"([^"]+)".*/\1/')

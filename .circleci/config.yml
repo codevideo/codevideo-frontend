@@ -86,8 +86,8 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             git checkout release
+            git tag -a $version
             GIT_MERGE_AUTOEDIT=no git merge main
-            git tag -a $version 
             git push origin release
   publish:
     docker:

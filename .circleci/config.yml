@@ -24,6 +24,16 @@ workflows:
             - CodeVideo
           requires:
             - test
+  publish:
+    jobs:
+      - publish:
+          context:
+            - CodeVideo
+          filters:
+            branches:
+              only:
+                - main
+
 
 jobs:
   test:
@@ -51,7 +61,7 @@ jobs:
           command: npm run test-ci
   release:
     docker:
-      - image: node:18-alpine
+      - image: node:latest
     steps:
       - checkout
       - run: npm install

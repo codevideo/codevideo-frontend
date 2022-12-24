@@ -95,8 +95,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Add npm registry credentials (uses NPM_USERNAME, NPM_PASSWORD, and NPM_EMAIL from context)
-          command: npm adduser --registry=https://registry.npmjs.org/ --always-auth=true
+          name: Login to npm
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Publish with npm (npm publish --access public)
           command: npm publish --access public

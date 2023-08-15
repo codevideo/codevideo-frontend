@@ -1,15 +1,20 @@
-
-import util from 'util'
-import childProcess from 'child_process';
+import { exec } from "child_process";
 
 describe("TypeScript compilation should have no warnings or errors", () => {
-  test("tsc --noEmit has an empty output", async () => {
-    // special promisified expect
-    const exec = util.promisify(childProcess.exec); 
+  test("npm run type-check has an empty output", async () => {
+    const exitCode = await new Promise<number>((resolve, reject) => {
+      exec("npm run type-check", (error, stdout, stderr) => {
+        console.log("stdout: ", stdout);
+        console.log("stderr: ", stderr);
+        if (error) {
+          reject(error.code);
+        } else {
+          resolve(0);
+        }
+      });
+    });
 
-    // use it to get typescript compiler output
-    const { stdout, stderr } = await exec('tsc --noEmit');
-    expect(stdout).toBe("");
-    expect(stderr).toBe("");
+    // Assert that the command exited with code 0
+    expect(exitCode).toBe(0);
   });
 });

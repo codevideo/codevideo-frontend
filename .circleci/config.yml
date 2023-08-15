@@ -62,7 +62,7 @@ jobs:
           path: coverage
       - run: 
           name: Upload Coverage Results to CodeCov
-          command: codecov -t $CODECOV_TOKEN
+          command: npm run codecov
       - run:
           name: Merge to main branch
           command: |

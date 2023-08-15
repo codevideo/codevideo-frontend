@@ -12,7 +12,8 @@
     "test": "start-server-and-test start http://localhost:3000 cy:run",
     "test-ci": "start-server-and-test start-ci http://localhost:3000 cy:run",
     "build": "rollup -c ./rollup.config.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "codecov": "codecov -t $CODECOV_TOKEN"
   },
   "repository": {
     "type": "git",

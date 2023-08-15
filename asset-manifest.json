@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/codevideo-frontend/static/css/main.f02d566e.css",
-    "main.js": "/codevideo-frontend/static/js/main.583e8180.js",
+    "main.js": "/codevideo-frontend/static/js/main.305d56fd.js",
     "static/js/787.759e47f1.chunk.js": "/codevideo-frontend/static/js/787.759e47f1.chunk.js",
     "static/media/codicon.ttf": "/codevideo-frontend/static/media/codicon.b797181c93b3755f4fa1.ttf",
     "index.html": "/codevideo-frontend/index.html",
     "main.f02d566e.css.map": "/codevideo-frontend/static/css/main.f02d566e.css.map",
-    "main.583e8180.js.map": "/codevideo-frontend/static/js/main.583e8180.js.map",
+    "main.305d56fd.js.map": "/codevideo-frontend/static/js/main.305d56fd.js.map",
     "787.759e47f1.chunk.js.map": "/codevideo-frontend/static/js/787.759e47f1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f02d566e.css",
-    "static/js/main.583e8180.js"
+    "static/js/main.305d56fd.js"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@fullstackcraftllc/codevideo-frontend",
-  "version": "1.1.2",
+  "version": "1.1.1",
   "description": "The frontend engine to create videos on codevideo.io",
   "type": "module",
   "main": "dist/index.js",
@@ -43,6 +43,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "jsdom": "^20.0.3",
     "rollup": "^3.7.5",
+    "semver": "^7.5.4",
     "serve": "^14.1.2",
     "start-server-and-test": "^1.15.2",
     "ts-node": "^10.9.1",

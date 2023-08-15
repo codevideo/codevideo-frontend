@@ -61,9 +61,6 @@ jobs:
       - store_artifacts:
           path: coverage
       - run: 
-          name: Install CodeCov
-          command: npm install codecov -g
-      - run: 
           name: Upload Coverage Results to CodeCov
           command: codecov -t $CODECOV_TOKEN
       - run:

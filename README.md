@@ -1,6 +1,6 @@
 # codevideo-frontend
 
-<img src="https://img.shields.io/npm/v/@fullstackcraftllc/codevideo-frontend"/>
+<img src="https://img.shields.io/npm/v/@fullstackcraftllc/codevideo-frontend"/> <img src="https://img.shields.io/codecov/c/github/codevideo/codevideo-frontend">
 
 The frontend engine to create videos on codevideo.io
 

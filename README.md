@@ -1,8 +1,8 @@
 # codevideo-frontend
 
-<img src="https://img.shields.io/npm/v/@fullstackcraftllc/codevideo-frontend"/> <img src="https://img.shields.io/codecov/c/github/codevideo/codevideo-frontend">
+<img src="https://img.shields.io/npm/v/@fullstackcraftllc/codevideo-frontend"/> <img src="https://img.shields.io/codecov/c/github/codevideo/codevideo-frontend"/>
 
-The frontend engine to create videos on codevideo.io
+The frontend engine used to create videos on [https://codevideo.io](https://codevideo.io)
 
 **_This package is about as unstable as you can get. Consider it even below alpha status. It is brand new and under considerable development._**
 
@@ -55,7 +55,10 @@ if (error) {
   // handle error
   console.error(error);
 }
-// No error, do something with videoUrl, for example, create video element, set its source, and append it to container
+// No error, so we can do something with videoUrl.
+
+// In this example, create a video element, set its source, and append it to a container
+
 // Create the video element
 const video = document.createElement("video");
 
@@ -75,3 +78,39 @@ if (container) {
   container.appendChild(video);
 }
 ```
+
+The canvas doesn't even have to be visible on the page. It can be off-screen or in a hidden div.
+
+Happy video making!
+
+## For Developers
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/codevideo/codevideo-frontend.git
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the tests:
+
+```bash
+npm test
+```
+
+4. Optionally, run the example site locally:
+
+```bash
+cd example
+npm install
+npm start
+```
+
+## Deploys
+
+Deploys are run with Circle CI. Merging to the `mian` branch will trigger a test, packaging, and publishing to the `release` branch.

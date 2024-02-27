@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { codeToVideo } from "./src/codeToVideo";
 import { MimicTypos } from "./src/enums/MimicTypos";
 
 function App() {
+  const [loading, setLoading] = useState(false);
   // async wrapper for codeToVideo with all needed setup
   const createVideo = async () => {
-    console.log('hello')
+    setLoading(true);
     // define video parameters
     const fps = 60;
     const mimeType = "video/webm";
@@ -49,18 +50,21 @@ function App() {
     if (container) {
       container.appendChild(video);
     }
+    setLoading(false);
   };
 
   // on mount
   useEffect(() => {
-    console.log('creating')
     createVideo();
   }, []);
 
   return (
+    <>
+    {loading && <div>Running 'Hello World' <code>codeToVideo</code> example...</div>}
     <div id="container">
       <canvas id="canvas" style={{display: 'none'}}/>
     </div>
+    </>
   );
 }
 

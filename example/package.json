@@ -1,10 +1,12 @@
 {
   "name": "example",
   "version": "0.1.0",
+  "homepage": "https://codevideo.github.io/codevideo-frontend",
   "private": true,
   "dependencies": {
     "@ffmpeg/core": "^0.11.0",
-    "@ffmpeg/ffmpeg": "^0.11.6",
+    "@ffmpeg/ffmpeg": "^0.12.10",
+    "@ffmpeg/util": "^0.12.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

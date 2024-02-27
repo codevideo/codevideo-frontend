@@ -21,7 +21,7 @@ describe("codeToVideo works in the browser", () => {
   });
 
   it("successfully produces a video file", () => {
-    // Our little test site doesn't have a video element until the vicdeo is produced, so our test can simply be:
+    // Our little test site doesn't have a video element until the video is produced, so our test can simply be:
     // (cypress will wait until video with id "video" shows up)
     cy.get("#video").should("have.attr", "src").should('include', 'blob');
   });

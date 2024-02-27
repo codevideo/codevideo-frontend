@@ -1,6 +1,7 @@
-import { createFFmpeg } from "@ffmpeg/ffmpeg";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { MimicTypos } from "../enums/MimicTypos";
 import { recordCanvas } from "../canvas/recordCanvas";
+import { toBlobURL } from "@ffmpeg/util";
 
 export const transcode = async (
   canvas: HTMLCanvasElement,
@@ -11,13 +12,16 @@ export const transcode = async (
   language: string,
   mimicTypos: MimicTypos
 ): Promise<string> => {
-  const ffmpeg = createFFmpeg({
-    mainName: "main",
-    corePath: "https://unpkg.com/@ffmpeg/core-st@0.11.1/dist/ffmpeg-core.js",
-    log: true,
-  });
-  if (!ffmpeg.isLoaded()) {
-    await ffmpeg.load();
+  const ffmpeg = new FFmpeg();
+  const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
+  if (!ffmpeg.loaded) {
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.wasm`,
+        "application/wasm"
+      ),
+    });
   }
   const blob = await recordCanvas(
     canvas,
@@ -30,19 +34,20 @@ export const transcode = async (
   );
   const recording = new Uint8Array(await blob.arrayBuffer());
   const webMFile = "recording.webm";
-  const outputFile = "output.mp4"
+  const outputFile = "output.mp4";
   console.log("start transcoding");
-  ffmpeg.FS("writeFile", webMFile, recording);
-  await ffmpeg.run(
+  await ffmpeg.writeFile(webMFile, recording);
+  console.log("wrote file")
+  await ffmpeg.exec([
     "-i",
     webMFile,
     "-c:v",
     "libx264",
     "-s",
     `${canvas.width}x${canvas.height}`,
-    outputFile
-  );
+    outputFile,
+  ]);
   console.log("Complete transcoding");
-  const data = ffmpeg.FS("readFile", outputFile);
-  return URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }));
+  const data = await ffmpeg.readFile(outputFile);
+  return URL.createObjectURL(new Blob([data], { type: "video/mp4" }));
 };

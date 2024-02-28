@@ -5,6 +5,8 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    defaultCommandTimeout: 60000
+    // has to be this long because the single thread ffmpeg process can take a while
+    // tests take a while to pass
+    defaultCommandTimeout: 120000
   },
 });

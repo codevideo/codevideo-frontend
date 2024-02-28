@@ -99,4 +99,21 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Publish with npm (npm publish --access public)
-          command: npm publish --access public
+          command: |
+            # Extract current version
+            current_version=$(grep '"version":' package.json | sed -E 's/.*"([^"]+)".*/\1/')
+            echo "Current version: $current_version"
+
+            # Use 'semver' to bump the patch version
+            new_version=$(semver bump patch "$current_version")
+            echo "New version: $new_version"
+
+            # Update the version in package.json
+            sed -i -E "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" package.json
+
+            # Commit and push changes
+            git config --global user.email $GIT_USER_EMAIL
+            git config --global user.name $GIT_USER_NAME
+
+            # Publish to NPM
+            npm publish --access public

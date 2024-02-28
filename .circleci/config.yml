@@ -98,7 +98,10 @@ jobs:
             git checkout release
             GIT_MERGE_AUTOEDIT=no git merge --strategy=ours main
             git tag -a $version -m $version
-            git push origin release
+            # force is okay here because we know the code is tested
+            git push origin release --force
+
+            echo "Bumped patch version and pushed changes"
   publish:
     docker:
       - image: node:latest

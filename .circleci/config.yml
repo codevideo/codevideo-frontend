@@ -1,27 +1,27 @@
 version: 2.1
 
 workflows:
-  test:
+  test_workflow:
     jobs:
-      - test:
+      - test_job:
           context:
             - codevideo
           filters:
             branches:
               only:
                 - develop
-  release:
+  release_workflow:
     jobs:
-      - release:
+      - release_job:
           context:
             - codevideo
           filters:
             branches:
               only:
                 - main
-  publish:
+  publish_workflow:
     jobs:
-      - publish:
+      - publish_job:
           context:
             - codevideo
           filters:
@@ -30,7 +30,7 @@ workflows:
                 - release
 
 jobs:
-  test:
+  test_job:
     docker:
       - image: cypress/browsers:node18.12.0-chrome107
     steps:
@@ -74,7 +74,7 @@ jobs:
             git checkout main
             GIT_MERGE_AUTOEDIT=no git merge develop
             git push origin main
-  release:
+  release_job:
     docker:
       - image: node:latest
     steps:
@@ -95,14 +95,15 @@ jobs:
             version=$(echo "$version_string" | sed -E 's/.*"([^"]+)".*/\1/')
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
-            git checkout --force release
+            # Checkout release but with 'ours' (main's) changes - including version
+            git checkout --ours release
             GIT_MERGE_AUTOEDIT=no git merge --strategy=ours main
             git tag -a $version -m $version
             # force is okay here because we know the code is tested
-            git push origin release --force
+            git push origin release
 
             echo "Bumped patch version and pushed changes"
-  publish:
+  publish_job:
     docker:
       - image: node:latest
     steps:

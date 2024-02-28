@@ -1,7 +1,7 @@
 version: 2.1
 
 workflows:
-  test_workflow:
+  develop_branch_workflow:
     jobs:
       - test_job:
           context:
@@ -10,7 +10,7 @@ workflows:
             branches:
               only:
                 - develop
-  release_workflow:
+  main_branch_workflow:
     jobs:
       - release_job:
           context:
@@ -19,7 +19,7 @@ workflows:
             branches:
               only:
                 - main
-  publish_workflow:
+  release_branch_workflow:
     jobs:
       - publish_job:
           context:

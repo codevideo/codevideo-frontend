@@ -103,7 +103,7 @@ jobs:
             git config --global user.email $GIT_USER_EMAIL
             git config --global user.name $GIT_USER_NAME
             # Checkout release branch
-            git checkout release
+            git checkout --force release
             GIT_MERGE_AUTOEDIT=no git merge --strategy=ours main
             git tag -a $version -m $version
             # force is okay here because we know the code is tested

@@ -1,15 +1,14 @@
-import typescript from "@rollup/plugin-typescript";
+import typescript from 'rollup-plugin-typescript2';
 import json from "@rollup/plugin-json";
 import dts from 'rollup-plugin-dts';
 
 export default [
+  // ES module
   {
     input: "src/index.ts",
     output: {
-      file: "dist/esm/index.js",
-      format: "module",
-      sourcemap: true,
-      strict: false,
+      file: "dist/index.js",
+      format: "es",
     },
     plugins: [typescript(), json()],
     external: [

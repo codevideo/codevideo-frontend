@@ -10,5 +10,5 @@ export default {
     strict: false,
   },
   plugins: [typescript(), json()],
-  external: ['@ffmpeg/ffmpeg']
+  external: ['@ffmpeg/ffmpeg', '@ffmpeg/util', 'monaco-editor-core', '@fullstackcraftllc/virtual-code-block']
 };

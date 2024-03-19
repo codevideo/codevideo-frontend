@@ -114,3 +114,7 @@ npm start
 ## Deploys
 
 Deploys are run with Circle CI. Merging to the `main` branch will trigger first tests and code coverage, then packaging. If this all works, this triggers a merge from `main` to `release`, where it is finally published to the `release` branch. You can see all these CI/CD processes in `.circleci/config.yml` directory.
+
+## Publishing
+
+This package can only be published when logged in as the @fullstackcraftllc user (really a note for Chris to himself more than anything).
